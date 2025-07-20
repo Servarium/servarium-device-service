@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user_devices-table__create-table
+      author: popipopka
+      changes:
+        - createTable:
+            tableName: user_devices
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: device_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: alias_name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: user_devices
+
+  - changeSet:
+      id: create-user_devices-table__add-fk
+      author: popipopka
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: user_devices
+            baseColumnNames: device_id
+            referencedTableName: devices
+            referencedColumnNames: id
+            constraintName: fk_user_devices_devices
+      rollback:
+        - dropForeignKeyConstraint:
+            baseTableName: user_devices
+            constraintName: fk_user_devices_devices
+
+  - changeSet:
+      id: create-user_devices-table__add-uq
+      author: popipopka
+      changes:
+        - addUniqueConstraint:
+            tableName: user_devices
+            columnNames: user_id, device_id
+            constraintName: uq_user_id_device_id
+      rollback:
+        - dropUniqueConstraint:
+            tableName: user_devices
+            constraintName: uq_user_id_device_id

@@ -1,9 +1,10 @@
-rootProject.name = "servarium-auth-service"
+rootProject.name = "servarium-device-service"
 
 include(
     "domain",
-//    "core",
-//    "input-port-adapter-rest-api",
-//    "output-port-adapter-persistence",
-//    "app-spring-boot"
+    "core",
+    "app-spring-boot",
+    "output-port-adapter-postgre",
+    "output-port-adapter-in-memory",
+    "input-port-adapter-rest-api"
 )
