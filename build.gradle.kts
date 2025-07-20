@@ -2,6 +2,8 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.5.3" apply false
 	id("io.spring.dependency-management") version "1.1.7"
+
+	id("nu.studer.jooq") version "8.2.3" apply false
 }
 
 subprojects {
@@ -39,7 +41,7 @@ subprojects {
 
 			dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
-//			dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+			dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
 		}
 	}
 

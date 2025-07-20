@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/device
+    username: local
+    password: 123456
+
+logging:
+  level:
+    root: info
+    app.servarium: debug
+    org.jooq:
+      Constants: off
+      tools.LoggerListener: debug

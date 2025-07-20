@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-devices-table__add-enum-os-type
+      author: popipopka
+      changes:
+        - sql:
+            sql: >
+              create type os_type as enum (
+                'LINUX'
+              );
+      rollback:
+        - sql:
+            sql: drop type if exists os_type;
+
+  - changeSet:
+      id: create-devices-table__create-table
+      author: popipopka
+      changes:
+        - createTable:
+            tableName: devices
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: os_type
+                  type: os_type
+                  constraints:
+                    nullable: false
+              - column:
+                  name: os_version
+                  type: varchar(128)
+              - column:
+                  name: cpu_name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gpu_name
+                  type: varchar(128)
+              - column:
+                  name: ram_amount
+                  type: numeric(6, 3)
+                  constraints:
+                    checkConstraint: ram_amount >= 0
+              - column:
+                  name: main_disk_name
+                  type: varchar(128)
+              - column:
+                  name: machine_name
+                  type: varchar(128)
+      rollback:
+        - dropTable:
+            tableName: devices
