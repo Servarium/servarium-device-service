@@ -8,6 +8,11 @@ logging:
   level:
     root: info
     app.servarium: debug
+    org.springframework.security: debug
     org.jooq:
       Constants: off
       tools.LoggerListener: debug
+
+app:
+  jwt:
+    accessPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5n7zuOB67FX7KVFcsYFVO+DIASu/wAveiGvglhjR5oHKPTA1xEdeWUGJkjaNLCFp/T/cDUycVIsQryrIhV8NfGCK3VyLQhfHSqlj7K3vX6BejZrZESbI0S9nr2nyp/EFDu/PwRjNM4SU5iBBHeYLVNt+MMcbZWxbDyKSO31wkZiVLoK3POChhntxZ7jJ+v4bwPSWRybg6Wdj50tX+ClU67+/z+th/0IlgOmepjRFwVNQGSl1hsJDNdwuiSC/a/ZHShgOX1FW70/o+O8iba6XJCbQmHwiVh2qJqEw1lO01Cf4fJ7hkKnz4XtiyXyoAiA5FQ6hrGoitD3/YbAaa27OawIDAQAB

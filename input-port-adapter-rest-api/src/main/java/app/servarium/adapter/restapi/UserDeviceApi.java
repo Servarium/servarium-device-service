@@ -9,9 +9,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +22,9 @@ import java.util.UUID;
 @Validated
 @Tag(
         name = "Подключенные устройства",
-        description = "Операции для управления подключенными устройствами пользователя"
+        description = "Операции для управления подключенными устройствами текущего пользователя"
 )
-@RequestMapping(value = "/api/v1/users/{userId}/devices", produces = "application/json")
+@RequestMapping(value = "/api/v1/users/devices", produces = "application/json")
 public interface UserDeviceApi {
 
     @Operation(
@@ -37,9 +38,10 @@ public interface UserDeviceApi {
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             }
     )
+    @SecurityRequirement(name = "JWT")
     @GetMapping
     ResponseEntity<List<UserDeviceItemResponse>> getUserDevices(
-            @PathVariable("userId") @PositiveOrZero long userId
+            @AuthenticationPrincipal long userId
     );
 
     @Operation(
@@ -55,9 +57,10 @@ public interface UserDeviceApi {
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             }
     )
+    @SecurityRequirement(name = "JWT")
     @GetMapping("/{deviceId}/config")
     ResponseEntity<DeviceConfigResponse> getUserDeviceConfig(
-            @PathVariable("userId") @PositiveOrZero long userId,
+            @AuthenticationPrincipal long userId,
             @PathVariable("deviceId") UUID deviceId
     );
 
@@ -75,9 +78,10 @@ public interface UserDeviceApi {
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             }
     )
+    @SecurityRequirement(name = "JWT")
     @PostMapping("/link")
     ResponseEntity<Void> linkDeviceToUser(
-            @PathVariable("userId") @PositiveOrZero long userId,
+            @AuthenticationPrincipal long userId,
             @RequestBody LinkDeviceRequest body
     );
 
@@ -92,9 +96,10 @@ public interface UserDeviceApi {
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             }
     )
+    @SecurityRequirement(name = "JWT")
     @DeleteMapping("/{deviceId}")
     ResponseEntity<Void> unlinkDeviceFromUser(
-            @PathVariable("userId") @PositiveOrZero long userId,
+            @AuthenticationPrincipal long userId,
             @PathVariable("deviceId") UUID deviceId
     );
 
@@ -109,9 +114,10 @@ public interface UserDeviceApi {
                             content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             }
     )
+    @SecurityRequirement(name = "JWT")
     @PatchMapping("/{deviceId}")
     ResponseEntity<Void> updateUserDevice(
-            @PathVariable("userId") @PositiveOrZero long userId,
+            @AuthenticationPrincipal long userId,
             @PathVariable("deviceId") UUID deviceId,
             @RequestBody UpdateUserDeviceRequest body
     );
