@@ -39,6 +39,12 @@ subprojects {
 				entry("mapstruct-processor")
 			}
 
+			dependencySet("io.jsonwebtoken:0.12.6") {
+				entry("jjwt-api")
+				entry("jjwt-impl")
+				entry("jjwt-jackson")
+			}
+
 			dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
 			dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
